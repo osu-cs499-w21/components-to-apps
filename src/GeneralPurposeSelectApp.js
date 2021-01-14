@@ -23,14 +23,22 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      starWars: Object.keys(starWarsOptions)[0]
+      starWars: Object.keys(starWarsOptions)[0],
+      pet: Object.keys(petOptions)[0]
     };
     this.handleStarWarsChange = this.handleStarWarsChange.bind(this);
+    this.handlePetChange = this.handlePetChange.bind(this);
   }
 
   handleStarWarsChange(value) {
     this.setState({
       starWars: value
+    });
+  }
+
+  handlePetChange(value) {
+    this.setState({
+      pet: value
     });
   }
 
@@ -48,10 +56,14 @@ class App extends React.Component {
             value={this.state.starWars}
             onValueChange={this.handleStarWarsChange}
           />
-          {/*<MySelect options={petOptions} />*/}
+          <MySelect
+            options={petOptions}
+            value={this.state.pet}
+            onValueChange={this.handlePetChange}
+          />
           <button type="submit">Submit</button>
         </form>
-        <h2>{this.state.starWars}</h2>
+        <h2>{starWarsOptions[this.state.starWars]} loves their {petOptions[this.state.pet]}</h2>
       </div>
     );
   }
