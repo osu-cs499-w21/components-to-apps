@@ -1,5 +1,9 @@
 import React from 'react';
 
+import MySelect from './components/MySelect';
+
+const numbers = [ 1, 2, 3, 4, 5, 6, 7, 8 ];
+
 const starWarsOptions = {
   rey: "Rey",
   luke: "Luke Skywalker",
@@ -18,21 +22,37 @@ const petOptions = {
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      starWars: Object.keys(starWarsOptions)[0]
+    };
+    this.handleStarWarsChange = this.handleStarWarsChange.bind(this);
+  }
+
+  handleStarWarsChange(value) {
+    this.setState({
+      starWars: value
+    });
   }
 
   render() {
+    const squares = numbers.map(num => num * num);
+    console.log("== squares:", squares);
     return (
-      <form>
-        <select>
-          <option value="rey">Rey</option>
-          <option value="luke">Luke Skywalker</option>
-          <option value="leia">Leia Organa</option>
-          <option value="finn">Finn (FN-2187)</option>
-          <option value="kylo">Kylo Renn</option>
-        </select>
-        <button type="submit">Submit</button>
-      </form>
+      <div>
+        <ul>
+          {numbers.map(num => <li key={num.toString()}>{num}</li>)}
+        </ul>
+        <form>
+          <MySelect
+            options={starWarsOptions}
+            value={this.state.starWars}
+            onValueChange={this.handleStarWarsChange}
+          />
+          {/*<MySelect options={petOptions} />*/}
+          <button type="submit">Submit</button>
+        </form>
+        <h2>{this.state.starWars}</h2>
+      </div>
     );
   }
 }
